@@ -1,0 +1,34 @@
+#!/bin/sh
+
+usage() {
+	echo "md2pdf <inputfile>"
+}
+
+[ -z "$1" ] && usage && exit 1
+
+filename=$(echo "$1" | sed 's/\.[^.]*$//')
+extension=$(echo "$1" | sed 's/^.*\.//')
+style_path="/home/mk/dox/sync/sync/md2pdf/style.tex"
+output="$filename.pdf"
+
+[ "$extension" != "md" ] && \
+	echo "Input file not markdown" && \
+	usage && exit 2
+
+# replaces ${toc} (from https://github.com/nagaozen/markdown-it-toc-done-right)
+# with \tableofcontents
+sed 's/${toc}/\\tableofcontents/' "$filename".md  |\
+pandoc --pdf-engine=xelatex \
+	-V mainfont:"Helvetica" \
+	-V colorlinks=true \
+	-V linkcolor=teal \
+	-V urlcolor=teal \
+	-V fontsize:12pt \
+	-H $style_path \
+	-f markdown+startnum+tex_math_dollars+implicit_figures+grid_tables \
+	--shift-heading-level-by=-1 \
+	-o $output
+
+[ $? -ne 0 ] && exit 3
+
+echo "generated $output successfully"
