@@ -24,7 +24,8 @@ pandoc --pdf-engine=xelatex \
 	-H $style_path \
 	-f markdown+startnum+tex_math_dollars+implicit_figures+grid_tables \
 	--shift-heading-level-by=-1 \
-	-o $output
+	-o $output \
+	"$filename".md
 
 [ $? -ne 0 ] && exit 3
 
