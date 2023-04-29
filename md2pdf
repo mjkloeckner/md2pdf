@@ -15,9 +15,6 @@ output="$filename.pdf"
 	echo "Input file not markdown" && \
 	usage && exit 2
 
-# replaces ${toc} (from https://github.com/nagaozen/markdown-it-toc-done-right)
-# with \tableofcontents
-sed 's/${toc}/\\tableofcontents/' "$filename".md  |\
 pandoc --pdf-engine=xelatex \
 	-V mainfont:"Helvetica" \
 	-V colorlinks=true \
