@@ -8,7 +8,8 @@ usage() {
 
 filename=$(echo "$1" | sed 's/\.[^.]*$//')
 extension=$(echo "$1" | sed 's/^.*\.//')
-style_path="/home/mk/dox/sync/sync/md2pdf/style.tex"
+md2pdf_path=$(dirname $(readlink -f $0))
+style_path=$md2pdf_path"/style.tex"
 output="$filename.pdf"
 
 [ "$extension" != "md" ] && \
