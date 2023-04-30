@@ -13,3 +13,24 @@ default.
 - [Pandoc](https://pandoc.org/)
 - [Inter font](https://fonts.google.com/specimen/Inter)
 - [Fira math font](https://github.com/firamath/firamath)
+
+## Usage
+
+```shell
+$ ./md2pdf <input_file.md>
+```
+
+## Installation
+
+If you want to install this script to your system just copy the executable to
+`$HOME/.local/bin` to make it user wide or to `/usr/bin` to make it system-wide.
+
+- User wide:
+```shell
+$ cp ./md2pdf $HOME/.local/bin
+```
+
+- System wide:
+```shell
+$ cp ./md2pdf /usr/bin
+```
