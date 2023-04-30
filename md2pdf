@@ -21,10 +21,10 @@ pandoc --pdf-engine=xelatex \
 	-V linkcolor=teal \
 	-V urlcolor=teal \
 	-V fontsize:12pt \
-	-H $style_path \
+	-H "$style_path" \
 	-f markdown+startnum+tex_math_dollars+implicit_figures+grid_tables \
 	--shift-heading-level-by=-1 \
-	-o $output \
+	-o "$output" \
 	"$filename".md
 
 [ $? -ne 0 ] && exit 3
