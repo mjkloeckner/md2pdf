@@ -10,6 +10,8 @@ filename=$(echo "$1" | sed 's/\.[^.]*$//')
 extension=$(echo "$1" | sed 's/^.*\.//')
 style_path="/home/mk/dox/sync/sync/md2pdf/style.tex"
 output="$filename.pdf"
+input_format="markdown+startnum+tex_math_dollars+implicit_figures"\
+"+grid_tables+backtick_code_blocks"
 
 [ "$extension" != "md" ] && \
 	echo "Input file not markdown" && \
@@ -22,11 +24,11 @@ pandoc --pdf-engine=xelatex \
 	-V urlcolor=teal \
 	-V fontsize:12pt \
 	-H $style_path \
-	-f markdown+startnum+tex_math_dollars+implicit_figures+grid_tables \
+	-f $input_format \
 	--shift-heading-level-by=-1 \
 	-o $output \
 	"$filename".md
 
 [ $? -ne 0 ] && exit 3
 
-echo "generated $output successfully"
+echo "\`$output\` generated successfully"
