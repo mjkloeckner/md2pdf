@@ -199,5 +199,16 @@ BoldFont        =   *-Bold,
 % better fractions
 \usepackage{nicefrac,xfrac}
 
+% surround footnotes number with square brackets and always use numbers (even
+% inside quoted text)
+% https://www.overleaf.com/learn/latex/Footnotes
+\renewcommand*{\thefootnote}{\ [\arabic{footnote}]\ }
+\renewcommand*{\thempfootnote}{\ [\arabic{mpfootnote}]\ }
+
+% space between text and footer
 \setlength\footskip{25pt}
-\setlength{\skip\footins}{1.5cm}
+\setlength{\skip\footins}{12pt}
+
+% align first letter of all the lines in the footnotes
+\usepackage[bottomfloats,belowfloats,hang]{footmisc}
+\setlength{\footnotemargin}{1em}
