@@ -27,7 +27,7 @@ $ cp ./md2pdf $HOME/.local/bin
 
 - System wide:
 ```shell
-$ cp ./md2pdf /usr/bin
+# cp ./md2pdf /usr/bin
 ```
 
 ## Usage
