@@ -1,8 +1,8 @@
 # Markdown to PDF
 
-This is a markdown to pdf wrapper for pandoc, its main purpose was to generate
-a similar PDF to the one generated with [Obsidian](https://obsidian.md/) by
-default.
+This is a markdown to pdf wrapper for [pandoc](https://pandoc.org/), its main
+purpose is to generate a similar PDF to the one generated with
+[Obsidian](https://obsidian.md/) by default.
 
 ## Example output
 
