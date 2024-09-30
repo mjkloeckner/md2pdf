@@ -1,15 +1,26 @@
 #!/bin/sh
 
 usage() {
-	echo "md2pdf <inputfile>"
+	printf "md2pdf [OPTIONS] FILE.md\n"
+	printf "  -H, --style-file FILE.tex\tlatex template for pandoc\n"
 }
+
+md2pdf_path=$(dirname $(readlink -f $0))
+style_path=$md2pdf_path"/style.tex"
+if [ "$1" = "--style-file" ] || [ "$1" = "-H" ]; then
+	shift
+	style_path="$(readlink -f $1)"
+	shift
+fi
 
 [ -z "$1" ] && usage && exit 1
 
 filename=$(echo "$1" | sed 's/\.[^.]*$//')
 extension=$(echo "$1" | sed 's/^.*\.//')
-md2pdf_path=$(dirname $(readlink -f $0))
-style_path=$md2pdf_path"/style.tex"
+
+echo "* input file: \`$(realpath --relative-base=$HOME $1)\`"
+echo "* style file: \`$(realpath --relative-base=$HOME $style_path)\`"
+
 output="$filename.pdf"
 input_format="markdown+startnum+tex_math_dollars+implicit_figures"\
 "+grid_tables+backtick_code_blocks"
