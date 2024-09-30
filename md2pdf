@@ -30,11 +30,10 @@ input_format="markdown+startnum+tex_math_dollars+implicit_figures"\
 	usage && exit 2
 
 pandoc --pdf-engine=xelatex \
-	-V mainfont:"Helvetica" \
 	-V colorlinks=true \
 	-V linkcolor=teal \
 	-V urlcolor=teal \
-	-V fontsize:12pt \
+	-V fontsize:11pt \
 	-H $style_path \
 	-f $input_format \
 	--shift-heading-level-by=-1 \
