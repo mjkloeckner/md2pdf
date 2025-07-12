@@ -1,27 +1,52 @@
 #!/bin/sh
 
 usage() {
-	printf "md2pdf [OPTIONS] FILE.md\n"
-	printf "  -H, --style-file FILE.tex\tlatex template for pandoc\n"
+	printf "$(basename $0) [OPTIONS] <input>.md\n"
+	printf "OPTIONS:\n"
+	printf "  -H, --style <file>.tex\n"
+	printf "  -l, --lua-filter <file>.lua\n"
+    printf "  -o, --output <file>\n"
 }
 
 md2pdf_path=$(dirname $(readlink -f $0))
 style_path=$md2pdf_path"/style.tex"
-if [ "$1" = "--style-file" ] || [ "$1" = "-H" ]; then
-	shift
-	style_path="$(readlink -f $1)"
-	shift
-fi
+highlight_style_path="$HOME/.local/bin/tango-grey-bg.theme"
+
+while [ $# -gt 1 ]; do
+    case "$1" in
+        --style-file|-H)
+            shift
+            style_path="$(readlink -f "$1")"
+            shift
+            ;;
+        --lua-filter|-l)
+            shift
+            lua_filter_path="$(readlink -f "$1")"
+            shift
+            ;;
+        --output|-o)
+            shift
+            output="$1"
+            shift
+            ;;
+        *)
+            shift
+            ;;
+    esac
+done
 
 [ -z "$1" ] && usage && exit 1
 
 filename=$(echo "$1" | sed 's/\.[^.]*$//')
 extension=$(echo "$1" | sed 's/^.*\.//')
 
-echo "* input file: \`$(realpath --relative-base=$HOME $1)\`"
-echo "* style file: \`$(realpath --relative-base=$HOME $style_path)\`"
+echo "* input file: \`$(realpath --relative-to=$HOME $1)\`"
+echo "* style file: \`$(realpath --relative-to=$HOME $style_path)\`"
+[ ! -z "$lua_filter_path" ] && echo "* lua filter: \`$(realpath --relative-to=$HOME $lua_filter_path)\`" &&\
+    lua_filter="--lua-filter=$lua_filter_path"
+echo "* highlight style file: \`$(realpath --relative-to=$HOME $highlight_style_path)\`"
 
-output="$filename.pdf"
+[ -z "$output" ] && output="$filename.pdf"
 input_format="markdown+startnum+tex_math_dollars+implicit_figures"\
 "+grid_tables+backtick_code_blocks"
 
@@ -31,15 +56,16 @@ input_format="markdown+startnum+tex_math_dollars+implicit_figures"\
 
 pandoc --pdf-engine=xelatex \
 	-V colorlinks=true \
-	-V linkcolor=teal \
-	-V urlcolor=teal \
-	-V fontsize:11pt \
+	-V linkcolor=blue \
+	-V urlcolor=blue \
 	-H $style_path \
 	-f $input_format \
+	--highlight-style "$highlight_style_path" \
 	--shift-heading-level-by=-1 \
 	-o "$output" \
+    $lua_filter \
 	"$filename".md
 
 [ $? -ne 0 ] && exit 3
 
-echo "\`$output\` generated successfully"
+printf "\`$output\` generated successfully\n"
