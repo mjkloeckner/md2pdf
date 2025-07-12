@@ -22,14 +22,17 @@ OPTIONS:
 ## Dependencies
 
 - [Pandoc](https://pandoc.org/)
-- [Inter font](https://fonts.google.com/specimen/Inter)
-- [Fira math font](https://github.com/firamath/firamath)
+- [Inter font](https://fonts.google.com/specimen/Inter)*
+- [Fira math font](https://github.com/firamath/firamath)*
+
+\* The last 2 are optional, depenting on the style of the generated PDF
 
 ## Installation
 
 If you want to install this script to your system, copy the executable to
 `$HOME/.local/bin` or to `/usr/bin` if you want to install it user-wide or
-system-wide respectively.
+system-wide respectively. Make sure to also move the corresponding style files
+if used to the same folder
 
 - User wide:
 ```shell
