@@ -10,7 +10,7 @@ usage() {
 
 md2pdf_path=$(dirname $(readlink -f $0))
 style_path=$md2pdf_path"/style.tex"
-highlight_style_path="$HOME/.local/bin/tango-grey-bg.theme"
+highlight_style_path="$md2pdf_path/tango-grey-bg.theme"
 
 while [ $# -gt 1 ]; do
     case "$1" in
