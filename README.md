@@ -8,6 +8,17 @@ purpose is to generate a similar PDF to the one generated with
 
 ![pdf](https://user-images.githubusercontent.com/64109770/235328806-cb7bd0aa-0b7e-44d3-b162-aa50a482d3a7.gif)
 
+## Usage
+
+```sh
+$ md2pdf
+md2pdf [OPTIONS] <input>.md
+OPTIONS:
+  -H, --style <file>.tex
+  -l, --lua-filter <file>.lua
+  -o, --output <file>
+```
+
 ## Dependencies
 
 - [Pandoc](https://pandoc.org/)
@@ -28,10 +39,4 @@ $ cp ./md2pdf $HOME/.local/bin
 - System wide:
 ```shell
 # cp ./md2pdf /usr/bin
-```
-
-## Usage
-
-```shell
-$ md2pdf <input_file.md>
 ```
